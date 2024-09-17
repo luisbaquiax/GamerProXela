@@ -1,5 +1,5 @@
 -- Insertar 50 productos en la bodega 'Bodega parque' (código 1)
-INSERT INTO bodega_productos (codigo_bodega, codigo_producto, cantidad) VALUES
+INSERT INTO bodega.bodega_productos (codigo_bodega, codigo_producto, cantidad) VALUES
 (1, 1, FLOOR(RANDOM() * 26) + 25),
 (1, 2, FLOOR(RANDOM() * 26) + 25),
 (1, 3, FLOOR(RANDOM() * 26) + 25),
@@ -52,7 +52,7 @@ INSERT INTO bodega_productos (codigo_bodega, codigo_producto, cantidad) VALUES
 (1, 50, FLOOR(RANDOM() * 26) + 25);
 
 -- Insertar 50 productos en la bodega 'Bodega centro1' (código 2)
-INSERT INTO bodega_productos (codigo_bodega, codigo_producto, cantidad) VALUES
+INSERT INTO bodega.bodega_productos (codigo_bodega, codigo_producto, cantidad) VALUES
 (2, 1, FLOOR(RANDOM() * 26) + 25),
 (2, 2, FLOOR(RANDOM() * 26) + 25),
 (2, 3, FLOOR(RANDOM() * 26) + 25),
@@ -105,7 +105,7 @@ INSERT INTO bodega_productos (codigo_bodega, codigo_producto, cantidad) VALUES
 (2, 50, FLOOR(RANDOM() * 26) + 25);
 
 -- Insertar 50 productos en la bodega 'Bodega centro2' (código 3)
-INSERT INTO bodega_productos (codigo_bodega, codigo_producto, cantidad) VALUES
+INSERT INTO bodega.bodega_productos (codigo_bodega, codigo_producto, cantidad) VALUES
 (3, 1, FLOOR(RANDOM() * 26) + 25),
 (3, 2, FLOOR(RANDOM() * 26) + 25),
 (3, 3, FLOOR(RANDOM() * 26) + 25),

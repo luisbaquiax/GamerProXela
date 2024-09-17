@@ -1,4 +1,4 @@
-INSERT INTO clientes (nit, nombre) VALUES
+INSERT INTO usuario.clientes (nit, nombre) VALUES
 ('12345678', 'Juan Pérez'),
 ('23456789', 'Ana Gómez'),
 ('34567890', 'Luis Martínez'),
@@ -8,4 +8,10 @@ INSERT INTO clientes (nit, nombre) VALUES
 ('78901234', 'Pedro Morales'),
 ('89012345', 'Marta Castillo'),
 ('90123456', 'Jorge López'),
-('01234567', 'Sofía Álvarez');
+('01234567', 'Sofía Álvarez'),
+('56689012', 'Jhony Fernández'),
+('44890123', 'Juan Sánchez'),
+('32901234', 'Mary Morales'),
+('48012345', 'Melani Castillo'),
+('96123456', 'Jorge Gomez'),
+('23234567', 'Gerardo Vasquez');

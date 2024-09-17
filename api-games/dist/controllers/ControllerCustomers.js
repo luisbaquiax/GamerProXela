@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getCustomers = void 0;
+exports.updateCustomer = exports.createCustomer = exports.getCustomers = void 0;
 const Cliente_1 = __importDefault(require("../models/Cliente"));
 const getCustomers = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -24,3 +24,46 @@ const getCustomers = (request, response) => __awaiter(void 0, void 0, void 0, fu
     }
 });
 exports.getCustomers = getCustomers;
+const createCustomer = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+    const { body } = request;
+    try {
+        const newCustomer = yield Cliente_1.default.create(body);
+        response.json({
+            message: "Cliente creado exitosamente!",
+        });
+    }
+    catch (error) {
+        console.log(error);
+        response.status(500).json({
+            message: "No se pudo crear el cliente. ",
+        });
+    }
+});
+exports.createCustomer = createCustomer;
+const updateCustomer = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+    const { nit } = request.params;
+    const { body } = request;
+    try {
+        const customer = yield Cliente_1.default.findOne({
+            where: { nit: nit },
+        });
+        if (customer) {
+            yield customer.update(body);
+            response.json({
+                message: "Se actualizó correctamente al cliente.",
+            });
+        }
+        else {
+            response.status(404).json({
+                message: "El cliente no existe con el nit: " + `${nit}`,
+            });
+        }
+    }
+    catch (error) {
+        console.log(error);
+        response.json({
+            message: "No se pudo actualizar al cliente. ",
+        });
+    }
+});
+exports.updateCustomer = updateCustomer;

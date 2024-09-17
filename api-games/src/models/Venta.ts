@@ -21,7 +21,7 @@ const VentaDB = coneccion.define(
     total:{
         type: DataTypes.NUMBER
     },
-    total_descuento:{
+    descuento:{
         type: DataTypes.NUMBER
     },
     codigo_sucursal:{
@@ -30,6 +30,7 @@ const VentaDB = coneccion.define(
   },
   {
     tableName: "ventas",
+    schema: "venta",
     createdAt: false,
     updatedAt: false,
   }

@@ -22,7 +22,7 @@ const VentaDB = Coneccion_1.default.define("venta", {
     total: {
         type: sequelize_1.DataTypes.NUMBER
     },
-    total_descuento: {
+    descuento: {
         type: sequelize_1.DataTypes.NUMBER
     },
     codigo_sucursal: {
@@ -30,6 +30,7 @@ const VentaDB = Coneccion_1.default.define("venta", {
     }
 }, {
     tableName: "ventas",
+    schema: "venta",
     createdAt: false,
     updatedAt: false,
 });

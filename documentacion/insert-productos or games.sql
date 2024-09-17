@@ -1,5 +1,5 @@
 -- Luego, inserta los registros en la tabla con precios específicos
-INSERT INTO productos (nombre, precio) VALUES
+INSERT INTO producto.productos (nombre, precio) VALUES
     ('FIFA', ROUND(15 * 7.7, 2)),
     ('Call of Duty', ROUND(20 * 7.7, 2)),
     ('Minecraft', ROUND(25 * 7.7, 2)),

@@ -1,5 +1,5 @@
 -- Insertar 100 productos en la sucursal 'Parque' (código 1)
-INSERT INTO sucursal_productos (codigo_sucursal, codigo_producto, cantidad, pasillo) VALUES
+INSERT INTO sucursal.sucursal_productos (codigo_sucursal, codigo_producto, cantidad, pasillo) VALUES
 (1, 1, 10, 5),
 (1, 2, 10, 3),
 (1, 3, 10, 7),
@@ -102,7 +102,7 @@ INSERT INTO sucursal_productos (codigo_sucursal, codigo_producto, cantidad, pasi
 (1, 100, 10, 9);
 
 -- Insertar 75 productos en la sucursal 'Centro1' (código 2)
-INSERT INTO sucursal_productos (codigo_sucursal, codigo_producto, cantidad, pasillo) VALUES
+INSERT INTO sucursal.sucursal_productos (codigo_sucursal, codigo_producto, cantidad, pasillo) VALUES
 (2, 1, 10, 1),
 (2, 2, 10, 4),
 (2, 3, 10, 7),
@@ -180,7 +180,7 @@ INSERT INTO sucursal_productos (codigo_sucursal, codigo_producto, cantidad, pasi
 (2, 75, 10, 7);
 
 -- Insertar 50 productos en la sucursal 'Centro2' (código 3)
-INSERT INTO sucursal_productos (codigo_sucursal, codigo_producto, cantidad, pasillo) VALUES
+INSERT INTO sucursal.sucursal_productos (codigo_sucursal, codigo_producto, cantidad, pasillo) VALUES
 (3, 1, 10, 10),
 (3, 2, 10, 7),
 (3, 3, 10, 4),
@@ -230,4 +230,29 @@ INSERT INTO sucursal_productos (codigo_sucursal, codigo_producto, cantidad, pasi
 (3, 47, 10, 2),
 (3, 48, 10, 9),
 (3, 49, 10, 6),
-(3, 50, 10, 3);
+(3, 50, 10, 3),
+(3, 51, 10, 8),
+(3, 52, 10, 3),
+(3, 53, 10, 9),
+(3, 54, 10, 6),
+(3, 55, 10, 1),
+(3, 56, 10, 4),
+(3, 57, 10, 7),
+(3, 58, 10, 2),
+(3, 59, 10, 5),
+(3, 60, 10, 8),
+(3, 61, 10, 3),
+(3, 62, 10, 9),
+(3, 63, 10, 6),
+(3, 64, 10, 1),
+(3, 65, 10, 4),
+(3, 66, 10, 7),
+(3, 67, 10, 2),
+(3, 68, 10, 5),
+(3, 99, 10, 8),
+(3, 100, 10, 3),
+(3, 102, 10, 9),
+(3, 112, 10, 6),
+(3, 73, 10, 1),
+(3, 84, 10, 4),
+(3, 115, 10, 7);

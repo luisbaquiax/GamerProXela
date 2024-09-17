@@ -20,6 +20,8 @@ const UsuarioDB = coneccion.define(
     },
   },
   {
+    tableName: "users",
+    schema: "usuario",
     createdAt: false,
     updatedAt: false,
   }

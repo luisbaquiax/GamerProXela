@@ -1,5 +1,5 @@
 -- Asignar 6 CAJEROS, 4 INVENTARIO a la sucursal 'Parque'
-INSERT INTO sucursal_usuarios (username_usuario, codigo_sucursal) VALUES
+INSERT INTO sucursal.sucursal_usuarios (username_usuario, codigo_sucursal) VALUES
 ('cajero1', 1),
 ('cajero2', 1),
 ('cajero3', 1),
@@ -12,7 +12,7 @@ INSERT INTO sucursal_usuarios (username_usuario, codigo_sucursal) VALUES
 ('inventario4', 1);
 
 -- Asignar 6 CAJEROS, 4 INVENTARIO a la sucursal 'Centro1'
-INSERT INTO sucursal_usuarios (username_usuario, codigo_sucursal) VALUES
+INSERT INTO sucursal.sucursal_usuarios (username_usuario, codigo_sucursal) VALUES
 ('cajero7', 2),
 ('cajero8', 2),
 ('cajero9', 2),
@@ -25,7 +25,7 @@ INSERT INTO sucursal_usuarios (username_usuario, codigo_sucursal) VALUES
 ('inventario8', 2);
 
 -- Asignar 6 CAJEROS, 4 INVENTARIO a la sucursal 'Centro2'
-INSERT INTO sucursal_usuarios (username_usuario, codigo_sucursal) VALUES
+INSERT INTO sucursal.sucursal_usuarios (username_usuario, codigo_sucursal) VALUES
 ('cajero13', 3),
 ('cajero14', 3),
 ('cajero15', 3),

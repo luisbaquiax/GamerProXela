@@ -21,6 +21,7 @@ const VentaProductoDB = coneccion.define(
   },
   {
     tableName: "productos_ventas",
+    schema:"venta",
     createdAt: false,
     updatedAt: false,
   }

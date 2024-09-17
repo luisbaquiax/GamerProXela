@@ -3,6 +3,9 @@ import cors from "cors";
 import routesUsers from "../../routers/RoutersUsers";
 import routerVentas from "../../routers/RoutersVentas";
 import routerCustomers from "../../routers/RoutersCustomers";
+import routerSucursal from "../../routers/RoutersSucursal";
+import routerBodega from "../../routers/RoutersBodega";
+import routerReportesAdmin from "../../routers/RouterReporteAdmin";
 import dataBase from "../../data/Coneccion";
 
 export class Server {
@@ -30,10 +33,13 @@ export class Server {
         msg: "API corriendo... Hola Luis",
       });
     });
-    //routers: users, ventas, customers
+    //routers: users, ventas, customers, sucursal
     this.app.use("/api/users", routesUsers);
     this.app.use("/api/ventas", routerVentas);
     this.app.use("/api/customers", routerCustomers);
+    this.app.use("/api/sucursal", routerSucursal);
+    this.app.use("/api/bodega", routerBodega);
+    this.app.use("/api/reportsAdmin", routerReportesAdmin);
   }
 
   casteoJSON() {

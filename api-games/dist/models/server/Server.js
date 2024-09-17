@@ -18,6 +18,9 @@ const cors_1 = __importDefault(require("cors"));
 const RoutersUsers_1 = __importDefault(require("../../routers/RoutersUsers"));
 const RoutersVentas_1 = __importDefault(require("../../routers/RoutersVentas"));
 const RoutersCustomers_1 = __importDefault(require("../../routers/RoutersCustomers"));
+const RoutersSucursal_1 = __importDefault(require("../../routers/RoutersSucursal"));
+const RoutersBodega_1 = __importDefault(require("../../routers/RoutersBodega"));
+const RouterReporteAdmin_1 = __importDefault(require("../../routers/RouterReporteAdmin"));
 const Coneccion_1 = __importDefault(require("../../data/Coneccion"));
 class Server {
     constructor() {
@@ -39,10 +42,13 @@ class Server {
                 msg: "API corriendo... Hola Luis",
             });
         });
-        //routers: users, ventas, customers
+        //routers: users, ventas, customers, sucursal
         this.app.use("/api/users", RoutersUsers_1.default);
         this.app.use("/api/ventas", RoutersVentas_1.default);
         this.app.use("/api/customers", RoutersCustomers_1.default);
+        this.app.use("/api/sucursal", RoutersSucursal_1.default);
+        this.app.use("/api/bodega", RoutersBodega_1.default);
+        this.app.use("/api/reportsAdmin", RouterReporteAdmin_1.default);
     }
     casteoJSON() {
         //parseamos el body

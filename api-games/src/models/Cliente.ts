@@ -15,6 +15,7 @@ const ClienteDB = coneccion.define(
   },
   {
     tableName: "clientes",
+    schema: "usuario",
     createdAt: false,
     updatedAt: false,
   }

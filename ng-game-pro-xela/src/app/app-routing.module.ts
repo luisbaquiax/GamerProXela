@@ -7,12 +7,13 @@ import { UsersComponent } from './components/admin/users/users.component';
 import { AdminCustomersComponent } from './components/admin/admin-customers/admin-customers.component';
 
 const routes: Routes = [
-  {path: '', component: LoginComponent},
+  {path:'', redirectTo: '/login', pathMatch: 'full' },
+  {path: 'login', component: LoginComponent},
   {path: 'admin-menu', component: AdminMenuComponent},
   {path: 'admin-users', component: UsersComponent},
   {path: 'admin-create-users', component: CreateUsersComponent},
   {path: 'admin-customers', component: AdminCustomersComponent},
-  {path:'**', redirectTo: '', pathMatch: 'full' }
+  {path:'**', redirectTo: '/login', pathMatch: 'full' }
 ];
 
 @NgModule({

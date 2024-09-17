@@ -20,6 +20,8 @@ const UsuarioDB = Coneccion_1.default.define("user", {
         type: sequelize_1.DataTypes.STRING,
     },
 }, {
+    tableName: "users",
+    schema: "usuario",
     createdAt: false,
     updatedAt: false,
 });
