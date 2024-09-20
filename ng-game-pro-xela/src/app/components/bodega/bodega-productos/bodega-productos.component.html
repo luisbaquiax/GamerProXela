@@ -1,0 +1,44 @@
+<app-bodega-menu></app-bodega-menu>
+<div class="container">
+  <div class="card top">
+    <div class="cad-hearder">
+      <h2 class="text-center mt-3">
+        <strong>Top 2 sucursales con más ingresos</strong>
+      </h2>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr class="table-primary text-center">
+            <th scope="col">No.</th>
+            <th scope="col">Codigo</th>
+            <th scope="col">Nombre del producto</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Unidades existentes</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of products; let i = index" class="text-center">
+            <td>{{ i + 1 }}</td>
+            <td>{{ p.codigo }}</td>
+            <td>{{ p.nombre }}</td>
+            <td>{{ p.precio | currency : "Q." }}</td>
+            <td>{{ p.cantidad }}</td>
+            <td>
+                <form [formGroup]="getFormGroup(i)" (ngSubmit)="setStock(p.codigo, i);" class="row g-3">
+                    <div class="col-3">
+                      <label for="unidades">Unidades</label>
+                      <input type="number" class="form-control" formControlName="cantidad" id="unidades">
+                    </div>
+                    <div class="col-auto">
+                      <button type="submit" class="btn btn-primary mb-2">Agregar unidades</button>
+                    </div>
+                  </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

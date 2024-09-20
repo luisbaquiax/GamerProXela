@@ -1,6 +1,6 @@
 export enum TipoUsuario{
-    ADMIN,
-    INVENTARIO,
-    BODEGA,
-    CAJERO
+    ADMIN = "ADMIN",
+    INVENTARIO = "INVENTARIO",
+    BODEGA = "BODEGA",
+    CAJERO= "CAJERO",
 }

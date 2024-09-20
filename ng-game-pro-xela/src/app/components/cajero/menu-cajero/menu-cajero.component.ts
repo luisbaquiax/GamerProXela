@@ -1,39 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TipoUsuario } from 'src/app/objetos/enum/TipoUsuario';
 import { Usuario } from 'src/app/objetos/interfaces/Usuario';
 import { SesionService } from 'src/app/services/sesion/Sesion.service';
 
 @Component({
-  selector: 'app-admin-menu',
-  templateUrl: './admin-menu.component.html',
-  styleUrls: ['./admin-menu.component.css'],
+  selector: 'app-menu-cajero',
+  templateUrl: './menu-cajero.component.html',
+  styleUrls: ['./menu-cajero.component.css'],
 })
-export class AdminMenuComponent implements OnInit {
-  form: FormGroup;
+export class MenuCajeroComponent implements OnInit {
+  user: Usuario;
 
-  user!: Usuario;
-  constructor(
-    private router: Router,
-    private fb: FormBuilder,
-    private sesionService: SesionService
-  ) {
-    this.form = this.fb.group({});
+  constructor(private router: Router, private sesionService: SesionService) {
     let userString = localStorage.getItem('userLogin');
     this.user = userString ? JSON.parse(userString) : null;
   }
 
   ngOnInit(): void {
-    if(this.user!=null){
-      if(this.user.tipo != TipoUsuario.ADMIN){
+    if (this.user != null) {
+      if (this.user.tipo != TipoUsuario.CAJERO) {
         this.router.navigate(['/login']);
       }
     }
     this.sesionService.validarSesion();
   }
-
-  singOut(): void {
+  public singOut() {
     this.sesionService.cerrarSesion();
   }
 }

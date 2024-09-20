@@ -9,6 +9,7 @@ import { Usuario } from '../objetos/interfaces/Usuario';
 export class UsersService {
   urlApi: string = 'http://localhost:3001/api/users';
   constructor(private http: HttpClient) { }
+  
   /**
    * router.get("/:username/:password", searchUser)
    * @param username 

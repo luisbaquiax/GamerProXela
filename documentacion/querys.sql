@@ -1,19 +1,28 @@
 -- selecciona los productos por sucursal y por cajero1
 
+	-- query
 SELECT p.codigo_sucursal, p.codigo_producto, p.cantidad, p.pasillo
 FROM sucursal.sucursal_productos p
 INNER JOIN sucursal.sucursal_usuarios u ON u.codigo_sucursal = p.codigo_sucursal
 WHERE u.username_usuario = 'cajero1';
 
--- version mejorada en forma de FUNCTION
+SELECT p.codigo_sucursal, p.codigo_producto, p.cantidad, p.pasillo, ps.nombre as producto, ps.precio
+FROM sucursal.sucursal_productos p
+INNER JOIN sucursal.sucursal_usuarios u ON u.codigo_sucursal = p.codigo_sucursal
+INNER JOIN producto.productos ps ON p.codigo_producto = ps.codigo
+INNER JOIN sucursal.sucursales sc ON sc.codigo = p.codigo_sucursal
+WHERE u.username_usuario = 'cajero1';
 
+	--FUNCTION
 CREATE OR REPLACE FUNCTION sucursal.get_sucursal_productos(username CHARACTER VARYING(45))
-RETURNS TABLE(codigo_sucursal INT, codigo_producto INT, cantidad INT, pasillo INT) AS $$
+RETURNS TABLE(codigo_sucursal INT, codigo_producto INT, cantidad INT, pasillo INT, producto CHARACTER VARYING(45), precio DOUBLE PRECISION) AS $$
 BEGIN
 	RETURN QUERY
-		SELECT p.codigo_sucursal, p.codigo_producto, p.cantidad, p.pasillo
+		SELECT p.codigo_sucursal, p.codigo_producto, p.cantidad, p.pasillo, ps.nombre as producto, ps.precio
 		FROM sucursal.sucursal_productos p
 		INNER JOIN sucursal.sucursal_usuarios u ON u.codigo_sucursal = p.codigo_sucursal
+		INNER JOIN producto.productos ps ON p.codigo_producto = ps.codigo
+		INNER JOIN sucursal.sucursales sc ON sc.codigo = p.codigo_sucursal
 		WHERE u.username_usuario = username;
 END;
 $$ LANGUAGE plpgsql;
@@ -22,20 +31,20 @@ SELECT * FROM sucursal.get_sucursal_productos('cajero1');
 
 
 -- selecciona los productos en una bodega
+	-- QUERY
 SELECT p.codigo, p.nombre, p.precio
 FROM producto.productos p
 INNER JOIN bodega.bodega_productos b ON p.codigo = b.codigo_producto
 INNER JOIN bodega.bodegas bo ON b.codigo_bodega = bo.codigo
 WHERE bo.username_usuario = 'bodega1';
 
--- selecciona los productos de una bodega por usuario
--- formato FUNCTION
+	-- FUNCTION
 
 CREATE OR REPLACE FUNCTION bodega.get_bodega_productos(username CHARACTER VARYING(45))
-RETURNS TABLE(codigo INT, nombre CHARACTER VARYING(45), precio DOUBLE PRECISION) AS $$
+RETURNS TABLE(codigo INT, nombre CHARACTER VARYING(45), precio DOUBLE PRECISION, cantidad INT) AS $$
 BEGIN
     RETURN QUERY
-		SELECT p.codigo, p.nombre, p.precio
+		SELECT p.codigo, p.nombre, p.precio, b.cantidad
 		FROM producto.productos p
 		INNER JOIN bodega.bodega_productos b ON p.codigo = b.codigo_producto
 		INNER JOIN bodega.bodegas bo ON b.codigo_bodega = bo.codigo
@@ -144,6 +153,7 @@ FROM venta.ventas v
 INNER JOIN usuario.clientes c ON c.nit = v.nit_cliente
 GROUP BY v.nit_cliente, c.nombre
 LIMIT 10;
+
 	-- VIEW o VISTA
 CREATE VIEW venta.top10_clientes AS
 	SELECT SUM(v.total - v.descuento) gastado, v.nit_cliente, c.nombre

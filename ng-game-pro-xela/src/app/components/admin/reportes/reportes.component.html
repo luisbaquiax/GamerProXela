@@ -1,0 +1,148 @@
+<app-admin-menu></app-admin-menu>
+<div class="container">
+  <!-- top de ventas por fecha -->
+  <div class="card top" *ngIf="showTopVentas == true">
+    <div class="cad-hearder">
+      <form [formGroup]="fomrGroup" (ngSubmit)="generarReporteVentas()" class="row g-3 mt-1 mx-3">
+        <div class="col-auto">
+          <label for="fecha1" class="visually-hidden">Email</label>
+          <input
+            type="date"
+            class="form-control"
+            id="fecha1"
+            formControlName="fecha1"
+            required
+            autocomplete="off"
+          />
+        </div>
+        <div class="col-auto">
+          <label for="fecha2" class="visually-hidden">Password</label>
+          <input
+            type="date"
+            class="form-control"
+            id="fecha2"
+            formControlName="fecha2"
+            required
+            autocomplete="off"
+          />
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary mb-3">
+            Realizar consulta
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="card-body">
+      <h2 class="text-center"><strong> Top 10 ventas </strong></h2>
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr class="table-primary">
+            <th scope="col">No.</th>
+            <th scope="col">Codigo</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Cajero</th>
+            <th scope="col">Sucursal</th>
+            <th scope="col">Nit Cliente</th>
+            <th scope="col">Total</th>
+            <th scope="col">Descuento</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let venta of topVentas; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ venta.codigo }}</td>
+            <td>{{ venta.fecha }}</td>
+            <td>{{ venta.username_usuario }}</td>
+            <td>{{ venta.sucursal }}</td>
+            <td>{{ venta.nit_cliente }}</td>
+            <td>{{ venta.total | currency : "Q." }}</td>
+            <td>{{ venta.descuento | currency : "Q." }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- top sucursales  -->
+  <div class="card top" *ngIf="reporte == 3">
+    <div class="cad-hearder">
+      <h2 class="text-center mt-3">
+        <strong>Top 2 sucursales con más ingresos</strong>
+      </h2>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr class="table-primary">
+            <th scope="col">No.</th>
+            <th scope="col">Codigo</th>
+            <th scope="col">Nombre de la sucursal</th>
+            <th scope="col">Total de ingresos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sucursal of topSucursales; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ sucursal.codigo }}</td>
+            <td>{{ sucursal.nombre }}</td>
+            <td>{{ sucursal.total | currency : "Q." }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- articulos vendidos -->
+  <div class="card top" *ngIf="reporte == 4">
+    <div class="cad-hearder">
+      <h2 class="text-center mt-3">
+        <strong>Top 10 artículos más vendidos</strong>
+      </h2>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr class="table-primary">
+            <th scope="col">No.</th>
+            <th scope="col">Nombre del producto</th>
+            <th scope="col">Cantidad vendida</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let articulo of topArticulos; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ articulo.nombre }}</td>
+            <td>{{ articulo.cantidad }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- clientes que mas dinero han gastado -->
+  <div class="card top" *ngIf="reporte == 5">
+    <div class="cad-hearder">
+      <h2 class="text-center mt-3">
+        <strong>Top 10 clientes que más han gastado</strong>
+      </h2>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr class="table-primary">
+            <th scope="col">No.</th>
+            <th scope="col">NIT</th>
+            <th scope="col">Nombre del cliente</th>
+            <th scope="col">Total gastado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cliente of topClientes; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ cliente.nit_cliente }}</td>
+            <td>{{ cliente.nombre }}</td>
+            <td>{{ cliente.gastado | currency : "Q." }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
