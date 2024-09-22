@@ -30,9 +30,9 @@ $$ LANGUAGE plpgsql;
 SELECT * FROM sucursal.get_sucursal_productos('cajero1');
 
 
--- selecciona los productos en una bodega
+-- selecciona los productos en una bodega - inventario
 	-- QUERY
-SELECT p.codigo, p.nombre, p.precio
+SELECT p.codigo, p.nombre, p.precio, b.cantidad, b.codigo_bodega as bodega
 FROM producto.productos p
 INNER JOIN bodega.bodega_productos b ON p.codigo = b.codigo_producto
 INNER JOIN bodega.bodegas bo ON b.codigo_bodega = bo.codigo
@@ -41,10 +41,10 @@ WHERE bo.username_usuario = 'bodega1';
 	-- FUNCTION
 
 CREATE OR REPLACE FUNCTION bodega.get_bodega_productos(username CHARACTER VARYING(45))
-RETURNS TABLE(codigo INT, nombre CHARACTER VARYING(45), precio DOUBLE PRECISION, cantidad INT) AS $$
+RETURNS TABLE(codigo INT, nombre CHARACTER VARYING(45), precio DOUBLE PRECISION, cantidad INT, bodega INT) AS $$
 BEGIN
     RETURN QUERY
-		SELECT p.codigo, p.nombre, p.precio, b.cantidad
+		SELECT p.codigo, p.nombre, p.precio, b.cantidad, b.codigo_bodega as bodega
 		FROM producto.productos p
 		INNER JOIN bodega.bodega_productos b ON p.codigo = b.codigo_producto
 		INNER JOIN bodega.bodegas bo ON b.codigo_bodega = bo.codigo

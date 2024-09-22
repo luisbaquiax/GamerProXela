@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS usuario.clientes(
 
 CREATE TABLE IF NOT EXISTS producto.productos(
     codigo SERIAL   PRIMARY KEY             NOT NULL,
-    nombre          CHARACTER VARYING(45)   NOT NULL,
+    nombre          UNIQUE CHARACTER VARYING(45)   NOT NULL,
     precio          DOUBLE PRECISION        NOT NULL
 );
 
@@ -38,6 +38,15 @@ CREATE TABLE IF NOT EXISTS sucursal.sucursal_usuarios(
     PRIMARY KEY(username_usuario, codigo_sucursal),
     FOREIGN KEY(username_usuario) REFERENCES usuario.users(username),
     FOREIGN KEY(codigo_sucursal) REFERENCES sucursal.sucursales(codigo)
+);
+
+CREATE TABLE IF NOT EXISTS sucursal.cajas(
+    numero              INT NOT NULL,
+    codigo_sucursal     INT NOT NULL,
+    username_usuario    CHARACTER VARYING(45) UNIQUE,
+    PRIMARY KEY(numero, codigo_sucursal),
+    FOREIGN KEY(codigo_sucursal) REFERENCES sucursal.sucursales(codigo),
+    FOREIGN KEY(username_usuario) REFERENCES usuario.users(username)
 );
 
 CREATE TABLE IF NOT EXISTS bodega.bodegas(

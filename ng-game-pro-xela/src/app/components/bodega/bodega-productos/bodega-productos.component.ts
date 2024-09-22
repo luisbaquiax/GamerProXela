@@ -7,6 +7,8 @@ import { Usuario } from 'src/app/objetos/interfaces/Usuario';
 import { ServiceBodegaService } from 'src/app/services/service-bodega/ServiceBodega.service';
 import { SesionService } from 'src/app/services/sesion/Sesion.service';
 
+import Swal from 'sweetalert2'
+
 @Component({
   selector: 'app-bodega-productos',
   templateUrl: './bodega-productos.component.html',
@@ -65,6 +67,29 @@ export class BodegaProductosComponent implements OnInit {
   public setStock(codigo: number, index: number): void {
     console.log('codigo y indice: ', codigo, index);
     const cantidad = this.getFormGroup(index).value.cantidad;
-    console.log(cantidad);
+
+    Swal.fire({
+      title: "¿Quiéres guardar los cambios?",
+      showDenyButton: true,
+      confirmButtonText: "Guardar",
+      denyButtonText: "Cancelar",
+      background: "#ececec",
+      confirmButtonColor: '#2c3e50',
+      color: '#2c3e50'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let producto = this.products[index];
+        producto.cantidad += cantidad;
+        this.serviceBodega.updateProductoBodega(producto.bodega, producto.codigo, producto).subscribe(result=>{
+          Swal.fire({
+            title: "Se ha agregado la cantidad al producto",
+            icon: "success",
+            confirmButtonText: "OK",
+            confirmButtonColor: '#2c3e50', 
+          });
+        });
+      }
+    });
   }
+
 }

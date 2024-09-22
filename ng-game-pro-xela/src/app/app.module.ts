@@ -20,6 +20,7 @@ import { ProductosComponent } from './components/cajero/productos/productos.comp
 import { BodegaProductosComponent } from './components/bodega/bodega-productos/bodega-productos.component';
 import { BodegaMenuComponent } from './components/bodega/bodega-menu/bodega-menu.component';
 import { BodegaRegistroProductComponent } from './components/bodega/bodega-registro-product/bodega-registro-product.component';
+import { MenuInventarioComponent } from './components/inventario/menu-inventario/menu-inventario.component';
 
 @NgModule({
   declarations: [
@@ -36,16 +37,17 @@ import { BodegaRegistroProductComponent } from './components/bodega/bodega-regis
     ProductosComponent,
     BodegaProductosComponent,
     BodegaMenuComponent,
-    BodegaRegistroProductComponent
+    BodegaRegistroProductComponent,
+    MenuInventarioComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [],
+    providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

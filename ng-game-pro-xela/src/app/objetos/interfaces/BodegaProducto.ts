@@ -1,6 +1,7 @@
-export interface BodegaProducto {
-  codigo: number;
-  nombre: string;
-  precio: number;
-  cantidad: number;
+export class BodegaProducto {
+  codigo!: number;
+  nombre!: string;
+  precio!: number;
+  cantidad!: number;
+  bodega!: number;
 }

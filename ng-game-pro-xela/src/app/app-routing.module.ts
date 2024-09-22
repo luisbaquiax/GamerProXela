@@ -13,6 +13,7 @@ import { ProductosComponent } from './components/cajero/productos/productos.comp
 import { BodegaMenuComponent } from './components/bodega/bodega-menu/bodega-menu.component';
 import { BodegaProductosComponent } from './components/bodega/bodega-productos/bodega-productos.component';
 import { BodegaRegistroProductComponent } from './components/bodega/bodega-registro-product/bodega-registro-product.component';
+import { MenuInventarioComponent } from './components/inventario/menu-inventario/menu-inventario.component';
 
 const routes: Routes = [
   {path:'', redirectTo: '/login', pathMatch: 'full'},
@@ -29,6 +30,7 @@ const routes: Routes = [
   {path: 'bodega-menu', component: BodegaMenuComponent},
   {path: 'bodega-products', component: BodegaProductosComponent},
   {path: 'bodega-registro-producto', component: BodegaRegistroProductComponent},
+  {path: 'inventario-menu', component: MenuInventarioComponent},
   {path:'**', redirectTo: '/login', pathMatch: 'full' }
 ];
 

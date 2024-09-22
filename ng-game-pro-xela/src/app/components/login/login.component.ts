@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
     this.usersService.saearchUsers(username, password).subscribe(
       (user) => {
       if (user != null) {
-        //console.log(user)
         localStorage.setItem('userLogin', JSON.stringify(user));
         if (user.tipo === TipoUsuario.ADMIN) {
           this.router.navigate(['admin-menu']);
@@ -42,7 +41,7 @@ export class LoginComponent implements OnInit {
         }else if(user.tipo === TipoUsuario.BODEGA){
           this.router.navigate(['bodega-menu']);
         }else if(user.tipo === TipoUsuario.INVENTARIO){
-          //this.router.navigate(['inventario-menu']);
+          this.router.navigate(['inventario-menu']);
         }
       }
     }, (error) => {
