@@ -23,11 +23,37 @@ BEGIN
 		INNER JOIN sucursal.sucursal_usuarios u ON u.codigo_sucursal = p.codigo_sucursal
 		INNER JOIN producto.productos ps ON p.codigo_producto = ps.codigo
 		INNER JOIN sucursal.sucursales sc ON sc.codigo = p.codigo_sucursal
-		WHERE u.username_usuario = username;
+		WHERE u.username_usuario = username ORDER BY ps.codigo ASC;
 END;
 $$ LANGUAGE plpgsql;
 
 SELECT * FROM sucursal.get_sucursal_productos('cajero1');
+
+-- productos en bodega para mostrar al de inventario
+	--query
+SELECT p.codigo, p.nombre, p.precio, b.cantidad, b.codigo_bodega as bodega
+FROM producto.productos p
+INNER JOIN bodega.bodega_productos b ON p.codigo = b.codigo_producto
+INNER JOIN bodega.bodegas bo ON b.codigo_bodega = bo.codigo
+WHERE bo.codigo_sucursal = 1;
+
+	-- FUNCTION
+CREATE OR REPLACE FUNCTION bodega.get_productos_inventario(sucursal INT)
+RETURNS TABLE(codigo INT, nombre CHARACTER VARYING(45), precio DOUBLE PRECISION, cantidad INT, bodega INT) AS $$
+BEGIN
+	RETURN QUERY
+		SELECT p.codigo, p.nombre, p.precio, b.cantidad, b.codigo_bodega as bodega
+		FROM producto.productos p
+		INNER JOIN bodega.bodega_productos b ON p.codigo = b.codigo_producto
+		INNER JOIN bodega.bodegas bo ON b.codigo_bodega = bo.codigo
+		WHERE bo.codigo_sucursal = sucursal ORDER BY p.codigo ASC;
+END;
+$$ LANGUAGE plpgsql;
+
+SELECT * FROM bodega.get_productos_inventario(1);
+
+	-- producto en estatenrias
+	-- query
 
 
 -- selecciona los productos en una bodega - inventario
@@ -48,7 +74,7 @@ BEGIN
 		FROM producto.productos p
 		INNER JOIN bodega.bodega_productos b ON p.codigo = b.codigo_producto
 		INNER JOIN bodega.bodegas bo ON b.codigo_bodega = bo.codigo
-		WHERE bo.username_usuario = username;
+		WHERE bo.username_usuario = username ORDER BY p.codigo ASC;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -104,6 +130,87 @@ END;
 $$ LANGUAGE plpgsql;
 
 SELECT * FROM venta.top_10_ventas('2024-01-01', '2024-12-31');
+
+
+	-- detalle de cada venta
+		--QUERY
+SELECT d.codigo_venta, d.codigo_producto, d.precio_unitario, d.cantidad, p.nombre
+FROM venta.productos_ventas d
+INNER JOIN venta.ventas v ON v.codigo = d.codigo_venta
+INNER JOIN producto.productos p ON d.codigo_producto = p.codigo
+WHERE V.codigo = 1;
+		--FUNCTION
+CREATE OR REPLACE FUNCTION venta.detalle_venta(v_codigo INT)
+RETURNS TABLE(venta INT, producto INT, precio DOUBLE PRECISION, cantidad INT, nombre CHARACTER VARYING(45)) AS $$
+BEGIN
+	RETURN QUERY
+		SELECT d.codigo_venta, d.codigo_producto, d.precio_unitario, d.cantidad, p.nombre
+		FROM venta.productos_ventas d
+		INNER JOIN venta.ventas v ON v.codigo = d.codigo_venta
+		INNER JOIN producto.productos p ON d.codigo_producto = p.codigo
+		WHERE V.codigo = v_codigo;
+END;
+$$ LANGUAGE plpgsql;
+
+SELECT * FROM venta.detalle_venta(1);
+
+	-- ventas por cliente
+CREATE OR REPLACE FUNCTION venta.ventas_cliente(nit CHARACTER VARYING(8))
+RETURNS TABLE(
+				codigo INT,
+				nit_cliente CHARACTER VARYING(8),
+				username_usuario CHARACTER VARYING(45),
+				fecha DATE,
+				total DOUBLE PRECISION,
+				descuento DOUBLE PRECISION,
+				sucursal CHARACTER VARYING(45)
+			) AS $$
+BEGIN
+	RETURN QUERY
+		SELECT 	v.codigo,
+				v.nit_cliente,
+				v.username_usuario,
+				v.fecha,
+				v.total,
+				v.descuento,
+				s.nombre AS sucursal
+		FROM venta.ventas v
+		INNER JOIN sucursal.sucursales s ON s.codigo = v.codigo_sucursal
+		WHERE v.nit_cliente = nit
+		ORDER BY v.codigo DESC;
+END;
+$$ LANGUAGE plpgsql;
+
+SELECT * FROM venta.ventas_cliente('12345678');
+
+	-- ventas por sucursal
+CREATE OR REPLACE FUNCTION venta.ventas_sucursal(id INT)
+RETURNS TABLE(
+				codigo INT,
+				nit_cliente CHARACTER VARYING(8),
+				username_usuario CHARACTER VARYING(45),
+				fecha DATE,
+				total DOUBLE PRECISION,
+				descuento DOUBLE PRECISION,
+				sucursal CHARACTER VARYING(45)
+			) AS $$
+BEGIN
+	RETURN QUERY
+		SELECT 	v.codigo,
+				v.nit_cliente,
+				v.username_usuario,
+				v.fecha,
+				v.total,
+				v.descuento,
+				s.nombre AS sucursal
+		FROM venta.ventas v
+		INNER JOIN sucursal.sucursales s ON s.codigo = v.codigo_sucursal
+		WHERE s.codigo = id
+		ORDER BY v.codigo DESC;
+END;
+$$ LANGUAGE plpgsql;
+
+SELECT * FROM venta.ventas_sucursal(1);
 
 -- ( 2 ) REPORTE: top 2 sucursales que más ha generado dinero
 	-- query

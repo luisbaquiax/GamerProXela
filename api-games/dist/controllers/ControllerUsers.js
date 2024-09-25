@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUser = exports.createUser = exports.searchUser = exports.getUsers = void 0;
+exports.updateUser = exports.createUser = exports.searchByUsername = exports.searchUser = exports.getUsers = void 0;
 const Usuario_1 = __importDefault(require("../models/Usuario"));
 const getUsers = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -60,6 +60,27 @@ const searchUser = (request, response) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.searchUser = searchUser;
+const searchByUsername = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { username } = request.params;
+        const user = yield Usuario_1.default.findOne({
+            where: { username: username },
+        });
+        if (user) {
+            response.json(user);
+        }
+        else {
+            response.status(404).json({ msg: `Usuario no enocontrado con el username: ${username}` });
+        }
+    }
+    catch (error) {
+        response.status(500).json({
+            message: "Hubo un error en el servidor.",
+            error,
+        });
+    }
+});
+exports.searchByUsername = searchByUsername;
 const createUser = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = request;
     try {
@@ -69,7 +90,7 @@ const createUser = (request, response) => __awaiter(void 0, void 0, void 0, func
         });
     }
     catch (error) {
-        response.json({
+        response.status(500).json({
             msg: "No se pudo crear al usuario.",
         });
     }
@@ -96,7 +117,7 @@ const updateUser = (request, response) => __awaiter(void 0, void 0, void 0, func
     }
     catch (error) {
         console.log("fallo al acutalizar al usuario: \n", error);
-        response.json({
+        response.status(500).json({
             message: "No se pudo actualizar al usuario. " + `${error}`,
         });
     }

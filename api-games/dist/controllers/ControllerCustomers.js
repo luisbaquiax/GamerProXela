@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateCustomer = exports.createCustomer = exports.getCustomers = void 0;
+exports.searchCustomer = exports.updateCustomer = exports.createCustomer = exports.getCustomers = void 0;
 const Cliente_1 = __importDefault(require("../models/Cliente"));
 const getCustomers = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -61,9 +61,29 @@ const updateCustomer = (request, response) => __awaiter(void 0, void 0, void 0, 
     }
     catch (error) {
         console.log(error);
-        response.json({
+        response.status(500).json({
             message: "No se pudo actualizar al cliente. ",
         });
     }
 });
 exports.updateCustomer = updateCustomer;
+const searchCustomer = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { nit } = request.params;
+        const customer = yield Cliente_1.default.findOne({
+            where: { nit: nit },
+        });
+        if (customer) {
+            response.json(customer);
+        }
+        else {
+            response.status(404).json({ message: "El cliente no existe con el nit: " + `${nit}` });
+        }
+    }
+    catch (error) {
+        response.status(500).json({
+            message: `Error en el servidor: ${error}`
+        });
+    }
+});
+exports.searchCustomer = searchCustomer;

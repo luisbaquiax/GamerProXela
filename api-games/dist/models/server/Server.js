@@ -22,6 +22,7 @@ const RoutersSucursal_1 = __importDefault(require("../../routers/RoutersSucursal
 const RoutersBodega_1 = __importDefault(require("../../routers/RoutersBodega"));
 const RouterReporteAdmin_1 = __importDefault(require("../../routers/RouterReporteAdmin"));
 const RouterProduct_1 = __importDefault(require("../../routers/RouterProduct"));
+const RouterInventario_1 = __importDefault(require("../../routers/RouterInventario"));
 const Coneccion_1 = __importDefault(require("../../data/Coneccion"));
 class Server {
     constructor() {
@@ -51,6 +52,7 @@ class Server {
         this.app.use("/api/bodega", RoutersBodega_1.default);
         this.app.use("/api/reportsAdmin", RouterReporteAdmin_1.default);
         this.app.use("/api/products", RouterProduct_1.default);
+        this.app.use("/api/inventario", RouterInventario_1.default);
     }
     casteoJSON() {
         //parseamos el body

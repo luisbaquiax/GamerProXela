@@ -12,13 +12,14 @@ CREATE TABLE IF NOT EXISTS usuario.users(
     username    CHARACTER VARYING(45)  NOT NULL,
     password    CHARACTER VARYING(100) NOT NULL,
     tipo        CHARACTER VARYING(10)  NOT NULL,
-    estado      CHARACTER VARYING(10)  NOT NULL,
+    estado      CHARACTER VARYING(15)  NOT NULL,
     PRIMARY KEY(username)
 );
 
 CREATE TABLE IF NOT EXISTS usuario.clientes(
-    nit VARCHAR(8)      PRIMARY KEY NOT NULL,
-    nombre VARCHAR(45)  NOT NULL
+    nit     CHARACTER VARYING(8)       PRIMARY KEY NOT NULL,
+    nombre  CHARACTER VARYING(45)       NOT NULL,
+    estado  CHARACTER VARYING(15)
 );
 
 CREATE TABLE IF NOT EXISTS producto.productos(
@@ -28,8 +29,8 @@ CREATE TABLE IF NOT EXISTS producto.productos(
 );
 
 CREATE TABLE IF NOT EXISTS sucursal.sucursales(
-    codigo SERIAL PRIMARY KEY   NOT NULL,
-    nombre VARCHAR(45)          NOT NULL
+    codigo SERIAL PRIMARY KEY       NOT NULL,
+    nombre CHARACTER VARYING(45)    NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS sucursal.sucursal_usuarios(
@@ -47,6 +48,16 @@ CREATE TABLE IF NOT EXISTS sucursal.cajas(
     PRIMARY KEY(numero, codigo_sucursal),
     FOREIGN KEY(codigo_sucursal) REFERENCES sucursal.sucursales(codigo),
     FOREIGN KEY(username_usuario) REFERENCES usuario.users(username)
+);
+
+CREATE TABLE IF NOT EXISTS sucursal.sucursal_productos(
+    codigo_sucursal INTEGER NOT NULL,
+    codigo_producto INTEGER NOT NULL,
+    cantidad        INT NOT NULL,
+    pasillo         INT NOT NULL,
+    PRIMARY KEY(codigo_sucursal, codigo_producto),
+    FOREIGN KEY(codigo_sucursal) REFERENCES sucursal.sucursales(codigo),
+    FOREIGN KEY(codigo_producto) REFERENCES producto.productos(codigo)
 );
 
 CREATE TABLE IF NOT EXISTS bodega.bodegas(
@@ -67,15 +78,6 @@ CREATE TABLE IF NOT EXISTS bodega.bodega_productos(
     FOREIGN KEY(codigo_producto) REFERENCES producto.productos(codigo)
 );
 
-CREATE TABLE IF NOT EXISTS sucursal.sucursal_productos(
-    codigo_sucursal INTEGER NOT NULL,
-    codigo_producto INTEGER NOT NULL,
-    cantidad        INT NOT NULL,
-    pasillo         INT NOT NULL,
-    PRIMARY KEY(codigo_sucursal, codigo_producto),
-    FOREIGN KEY(codigo_sucursal) REFERENCES sucursal.sucursales(codigo),
-    FOREIGN KEY(codigo_producto) REFERENCES producto.productos(codigo)
-);
 /*
 Venta de productos
 */

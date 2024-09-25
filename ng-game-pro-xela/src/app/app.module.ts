@@ -8,7 +8,6 @@ import { RealizarVentaComponent } from './components/cajero/realizar-venta/reali
 import { CustomersComponent } from './components/cajero/customers/customers.component';
 import { CreateUsersComponent } from './components/admin/create-users/create-users.component';
 import { UsersComponent } from './components/admin/users/users.component';
-import { AdminCustomersComponent } from './components/admin/admin-customers/admin-customers.component';
 import { AdminMenuComponent } from './components/admin/admin-menu/admin-menu.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
@@ -21,6 +20,9 @@ import { BodegaProductosComponent } from './components/bodega/bodega-productos/b
 import { BodegaMenuComponent } from './components/bodega/bodega-menu/bodega-menu.component';
 import { BodegaRegistroProductComponent } from './components/bodega/bodega-registro-product/bodega-registro-product.component';
 import { MenuInventarioComponent } from './components/inventario/menu-inventario/menu-inventario.component';
+import { InventarioProductosComponent } from './components/inventario/inventario-productos/inventario-productos.component';
+import { InventarioEstanteriasComponent } from './components/inventario/inventario-estanterias/inventario-estanterias.component';
+import { AdminCutomersComponent } from './components/admin/admin-cutomers/admin-cutomers.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,6 @@ import { MenuInventarioComponent } from './components/inventario/menu-inventario
     CustomersComponent,
     CreateUsersComponent,
     UsersComponent,
-    AdminCustomersComponent,
     AdminMenuComponent,
     MenuCajeroComponent,
     ReportesComponent,
@@ -38,7 +39,10 @@ import { MenuInventarioComponent } from './components/inventario/menu-inventario
     BodegaProductosComponent,
     BodegaMenuComponent,
     BodegaRegistroProductComponent,
-    MenuInventarioComponent
+    MenuInventarioComponent,
+    InventarioProductosComponent,
+    InventarioEstanteriasComponent,
+    AdminCutomersComponent
   ],
   imports: [
     BrowserModule,

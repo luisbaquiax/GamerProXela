@@ -3,7 +3,12 @@
   <!-- top de ventas por fecha -->
   <div class="card top" *ngIf="showTopVentas == true">
     <div class="cad-hearder">
-      <form [formGroup]="fomrGroup" (ngSubmit)="generarReporteVentas()" class="row g-3 mt-1 mx-3">
+      <form
+        *ngIf="showForm == true"
+        [formGroup]="fomrGroup"
+        (ngSubmit)="generarReporteVentas()"
+        class="row g-3 mt-1 mx-3"
+      >
         <div class="col-auto">
           <label for="fecha1" class="visually-hidden">Email</label>
           <input
@@ -34,18 +39,20 @@
       </form>
     </div>
     <div class="card-body">
-      <h2 class="text-center"><strong> Top 10 ventas </strong></h2>
+      <h2 class="text-center"><strong> {{ title }} </strong></h2>
       <table class="table table-striped table-hover">
         <thead>
           <tr class="table-primary">
             <th scope="col">No.</th>
-            <th scope="col">Codigo</th>
+            <th scope="col">Factura</th>
             <th scope="col">Fecha</th>
             <th scope="col">Cajero</th>
             <th scope="col">Sucursal</th>
             <th scope="col">Nit Cliente</th>
             <th scope="col">Total</th>
+            <th scope="col">Total con descuento</th>
             <th scope="col">Descuento</th>
+            <th scope="col">Detalle</th>
           </tr>
         </thead>
         <tbody>
@@ -57,7 +64,90 @@
             <td>{{ venta.sucursal }}</td>
             <td>{{ venta.nit_cliente }}</td>
             <td>{{ venta.total | currency : "Q." }}</td>
+            <td>{{ venta.total - venta.descuento | currency: 'Q.' }}</td>
             <td>{{ venta.descuento | currency : "Q." }}</td>
+            <td>
+              <!-- Button trigger modal -->
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                (click)="generarDetalleVentas(venta.codigo)"
+              >
+                Ver productos
+              </button>
+              <!-- Modal -->
+              <div
+                class="modal fade"
+                id="exampleModal"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h2
+                        class="modal-title text-center"
+                        id="exampleModalLabel"
+                      >
+                        <strong> Detalle de la venta </strong>
+                      </h2>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="modal-body">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr class="table-primary">
+                              <th>Codigo producto</th>
+                              <th>Nombre producto</th>
+                              <th>Precio unitario</th>
+                              <th>Cantidad</th>
+                              <th>Subtotal</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let d of productosVenta">
+                              <td>{{ d.producto }}</td>
+                              <td>{{ d.nombre }}</td>
+                              <td>{{ d.precio | currency : "Q." }}</td>
+                              <td>{{ d.cantidad }}</td>
+                              <td>
+                                {{ d.cantidad * d.precio | currency : "Q." }}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td><strong>Total</strong></td>
+                              <td><strong>{{ totalDetalle | currency : "Q." }}</strong></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        data-bs-dismiss="modal"
+                      >
+                        Cerrar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- fin modal -->
+            </td>
           </tr>
         </tbody>
       </table>
@@ -78,6 +168,7 @@
             <th scope="col">Codigo</th>
             <th scope="col">Nombre de la sucursal</th>
             <th scope="col">Total de ingresos</th>
+            <th scope="col">Ver ventas</th>
           </tr>
         </thead>
         <tbody>
@@ -86,6 +177,9 @@
             <td>{{ sucursal.codigo }}</td>
             <td>{{ sucursal.nombre }}</td>
             <td>{{ sucursal.total | currency : "Q." }}</td>
+            <td>
+              <button class="btn btn-primary" (click)="generarVentasPorSucursal(sucursal.codigo, sucursal.nombre)">Ver compras</button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -132,6 +226,7 @@
             <th scope="col">NIT</th>
             <th scope="col">Nombre del cliente</th>
             <th scope="col">Total gastado</th>
+            <th scope="col">Ver compras</th>
           </tr>
         </thead>
         <tbody>
@@ -140,9 +235,13 @@
             <td>{{ cliente.nit_cliente }}</td>
             <td>{{ cliente.nombre }}</td>
             <td>{{ cliente.gastado | currency : "Q." }}</td>
+            <td>
+              <button class="btn btn-primary" (click)="generarVentasPorCliente(cliente.nit_cliente, cliente.nombre)">Ver compras</button>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
+   
 </div>

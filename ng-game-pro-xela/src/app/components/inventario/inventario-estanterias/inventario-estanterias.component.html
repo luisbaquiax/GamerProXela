@@ -1,0 +1,31 @@
+<app-menu-inventario></app-menu-inventario>
+<app-menu-inventario></app-menu-inventario>
+<div class="container">
+  <!-- productos -->
+  <div class="card top">
+    <div class="cad-hearder"></div>
+    <div class="card-body">
+      <h2 class="text-center"><strong> Productos en estatería </strong></h2>
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr class="table-primary">
+            <th scope="col">No.</th>
+            <th scope="col">Codigo</th>
+            <th scope="col">Nombre del juego</th>
+            <th scope="col">Unidades disponibles</th>
+            <th scope="col">Pasillo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let producto of productos; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ producto.codigo_producto }}</td>
+            <td>{{ producto.producto }}</td>
+            <td>{{ producto.cantidad }}</td>
+            <td>{{ producto.pasillo }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

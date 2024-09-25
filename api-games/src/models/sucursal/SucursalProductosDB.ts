@@ -1,4 +1,4 @@
-/*import coneccion from "../../data/Coneccion";
+import coneccion from "../../data/Coneccion";
 import { DataTypes } from "sequelize";
 
 const SucursalProductosDB = coneccion.define(
@@ -30,4 +30,4 @@ const SucursalProductosDB = coneccion.define(
   }
 );
 
-export default SucursalProductosDB;*/
+export default SucursalProductosDB;

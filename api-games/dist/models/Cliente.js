@@ -13,6 +13,9 @@ const ClienteDB = Coneccion_1.default.define("cliente", {
     nombre: {
         type: sequelize_1.DataTypes.STRING
     },
+    estado: {
+        type: sequelize_1.DataTypes.STRING
+    },
 }, {
     tableName: "clientes",
     schema: "usuario",

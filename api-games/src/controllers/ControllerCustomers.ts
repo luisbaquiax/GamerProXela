@@ -45,8 +45,26 @@ export const updateCustomer = async (request: Request, response: Response) => {
     }
   } catch (error) {
     console.log(error);
-    response.json({
+    response.status(500).json({
       message: "No se pudo actualizar al cliente. ",
+    });
+  }
+};
+
+export const searchCustomer = async (request: Request, response: Response) => {
+  try {
+    const { nit } = request.params;
+    const customer = await ClienteDB.findOne({
+      where: { nit: nit },
+    });
+    if (customer) {
+      response.json(customer);
+    }else {
+      response.status(404).json({message: "El cliente no existe con el nit: " + `${nit}`});
+    }
+  } catch (error) {
+    response.status(500).json({
+      message: `Error en el servidor: ${error}`
     });
   }
 };

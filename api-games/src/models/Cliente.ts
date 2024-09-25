@@ -12,6 +12,9 @@ const ClienteDB = coneccion.define(
     nombre: {
         type:DataTypes.STRING
     },
+    estado: {
+      type:DataTypes.STRING
+  },
   },
   {
     tableName: "clientes",

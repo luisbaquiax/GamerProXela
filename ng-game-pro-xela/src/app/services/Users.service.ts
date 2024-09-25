@@ -20,6 +20,19 @@ export class UsersService {
   }
 
   public createUser(user: Usuario): Observable<Usuario> {
-    return this.http.post<Usuario>(this.urlApi, +`/${user}`);
+    return this.http.post<Usuario>(this.urlApi, user);
+  }
+
+  public getUsers(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(this.urlApi);
+  }
+  /**
+   * 
+   * @url http://localhost:3001/api/users/searchUser/:username
+   * @param username 
+   * @returns 
+   */
+  public searchUserByUsername(username: string): Observable<Usuario> {
+    return this.http.get<Usuario>(this.urlApi+'/searchUser/'+username);
   }
 }

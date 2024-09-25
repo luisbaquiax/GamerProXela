@@ -47,6 +47,28 @@ export const searchUser = async (request: Request, response: Response) => {
   }
 };
 
+export const searchByUsername = async (request: Request, response: Response) => {
+  try {
+
+    const { username } = request.params;
+    const user = await usuarioDB.findOne({
+      where: { username: username },
+    });
+
+    if(user){
+      response.json(user);
+    }else{
+      response.status(404).json({msg: `Usuario no enocontrado con el username: ${username}`});
+    }
+    
+  } catch (error) {
+    response.status(500).json({
+      message: "Hubo un error en el servidor.",
+      error,
+    });
+  }
+};
+
 export const createUser = async (request: Request, response: Response) => {
   const { body } = request;
   try {
@@ -55,7 +77,7 @@ export const createUser = async (request: Request, response: Response) => {
       msg: "El usuario se guardo con éxito.",
     });
   } catch (error) {
-    response.json({
+    response.status(500).json({
       msg: "No se pudo crear al usuario.",
     });
   }
@@ -82,7 +104,7 @@ export const updateUser = async (request: Request, response: Response) => {
     }
   } catch (error) {
     console.log("fallo al acutalizar al usuario: \n", error);
-    response.json({
+    response.status(500).json({
       message: "No se pudo actualizar al usuario. " + `${error}`,
     });
   }

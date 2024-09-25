@@ -9,18 +9,16 @@
         <tr class="table-primary">
           <th scope="col">No.</th>
           <th scope="col">Nombre de usuario</th>
-          <th scope="col">Contraseña</th>
           <th scope="col">Tipo</th>
           <th scope="col">Estado</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th>1</th>
-          <td>username1</td>
-          <td>hola1</td>
-          <td>CAJERO</td>
-          <td>ACTIVO</td>
+        <tr *ngFor="let user of users; let i =  index;">
+          <th>{{ i + 1 }}</th>
+          <td>{{ user.username }}</td>
+          <td>{{ user.tipo }}</td>
+          <td>{{ user.estado }}</td>
         </tr>
       </tbody>
     </table>

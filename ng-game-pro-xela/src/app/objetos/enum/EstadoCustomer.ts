@@ -1,0 +1,5 @@
+export enum EstadoCustomer {
+    MODIFICABLE = "MODIFICABLE",
+    NO_MODIFICABLE = "NO_MODIFICABLE",
+    SOLICITAR = "SOLICITAR",
+}
