@@ -37,7 +37,7 @@ export class AdminCutomersComponent implements OnInit {
   }
 
   public setCustomers(): void {
-    this.serviceCustomer.getCustomers().subscribe((data) => {
+    this.serviceCustomer.getCustomersByStatus(EstadoCustomer.SOLICITAR).subscribe((data) => {
       this.customers = data;
     });
   }
@@ -46,9 +46,23 @@ export class AdminCutomersComponent implements OnInit {
     customer.estado = EstadoCustomer.MODIFICABLE;
     this.serviceCustomer.updateCustomer(customer.nit, customer).subscribe(
       (data) => {
-        
+        this.customers = this.customers.filter(c => c.nit !== customer.nit);
+        Swal.fire({
+          title: 'Se ha aprobado la solicitud.',
+          icon:'success',
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#2c3e50',
+        });
       },
-      (error) => {}
+      (error) => {
+        Swal.fire({
+          title: 'No se pudo guardar los cambios lo sentimos!',
+          icon: 'error',
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#c6313a',
+        });
+      }
     );
+    
   }
 }

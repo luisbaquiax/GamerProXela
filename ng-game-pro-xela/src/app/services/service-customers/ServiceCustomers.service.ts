@@ -15,6 +15,15 @@ export class ServiceCustomersService {
     return this.http.get<Customer[]>(this.urlApi);
   }
 
+  /**
+   * @url http://localhost:3001/api/customers/estado/SOLICITAR
+   * @param status 
+   * @returns 
+   */
+  public getCustomersByStatus(status: string): Observable<Customer[]> {
+    return this.http.get<Customer[]>(`${this.urlApi}/estado/${status}`);
+  }
+
   public updateCustomer(nit: String, customer: Customer): Observable<any>{
     return this.http.put<any>(this.urlApi+`/${nit}`, customer);
   }

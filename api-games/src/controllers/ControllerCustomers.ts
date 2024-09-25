@@ -10,6 +10,18 @@ export const getCustomers = async (request: Request, response: Response) => {
   }
 };
 
+export const getCustomersByEstado = async (request: Request, response: Response) => {
+  try {
+    const { estado } = request.params;
+    const listCustomers = await ClienteDB.findAll({
+      where: { estado: estado },
+    });
+    response.json(listCustomers);
+  } catch (error) {
+    response.status(500).json({ message: "error: " + `${error}` });
+  }
+};
+
 export const createCustomer = async (request: Request, response: Response) => {
   const { body } = request;
   try {

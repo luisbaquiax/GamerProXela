@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.searchCustomer = exports.updateCustomer = exports.createCustomer = exports.getCustomers = void 0;
+exports.searchCustomer = exports.updateCustomer = exports.createCustomer = exports.getCustomersByEstado = exports.getCustomers = void 0;
 const Cliente_1 = __importDefault(require("../models/Cliente"));
 const getCustomers = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -24,6 +24,19 @@ const getCustomers = (request, response) => __awaiter(void 0, void 0, void 0, fu
     }
 });
 exports.getCustomers = getCustomers;
+const getCustomersByEstado = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { estado } = request.params;
+        const listCustomers = yield Cliente_1.default.findAll({
+            where: { estado: estado },
+        });
+        response.json(listCustomers);
+    }
+    catch (error) {
+        response.status(500).json({ message: "error: " + `${error}` });
+    }
+});
+exports.getCustomersByEstado = getCustomersByEstado;
 const createCustomer = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = request;
     try {
