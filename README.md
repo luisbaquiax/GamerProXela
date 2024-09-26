@@ -12,4 +12,4 @@ Simular tienda de video juegos con sucursales
 ### usar la version de node: nvm use 18.10.0
 ## Video GameProXela
 
-Mostrando Funcioanlidades [aquí](https://www.youtube.com/watch?v=ejemplo).
+Mostrando Funcioanlidades [aquí](https://tinyurl.com/27826pco).
