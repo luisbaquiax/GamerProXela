@@ -12,10 +12,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.detallVenta = exports.ventasPorSucursal = exports.ventasPorCliente = exports.productosPorVenta = void 0;
+exports.detallVenta = exports.ventasPorSucursal = exports.ventasPorCliente = exports.productosPorVenta = exports.agregarProducto = void 0;
 const VentaProducto_1 = __importDefault(require("../models/VentaProducto"));
 const Coneccion_1 = __importDefault(require("../data/Coneccion"));
 const sequelize_1 = require("sequelize");
+const agregarProducto = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { body } = request;
+        yield VentaProducto_1.default.create(body);
+        response.json({ msg: "Producto agregado correctamente en la venta." });
+    }
+    catch (error) {
+        response.status(500).json({ error: `No se pudo guardar el producto ${error}` });
+    }
+});
+exports.agregarProducto = agregarProducto;
 const productosPorVenta = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { codigoVenta } = request.params;

@@ -9,6 +9,7 @@ const VentaDB = Coneccion_1.default.define("venta", {
     codigo: {
         type: sequelize_1.DataTypes.NUMBER,
         primaryKey: true,
+        autoIncrement: true,
     },
     nit_cliente: {
         type: sequelize_1.DataTypes.STRING,

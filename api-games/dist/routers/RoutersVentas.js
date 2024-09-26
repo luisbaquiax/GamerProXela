@@ -10,4 +10,7 @@ router.get("/ventaProducto/:codigoVenta", ControllerVentaProductos_1.productosPo
 router.get("/detalleVenta/:codigoVenta", ControllerVentaProductos_1.detallVenta);
 router.get("/ventasCliente/:nitCliente", ControllerVentaProductos_1.ventasPorCliente);
 router.get("/ventasSucursal/:codigoSucursal", ControllerVentaProductos_1.ventasPorSucursal);
+router.get("/", ControllerVenta_1.getVentas);
+router.post("/", ControllerVenta_1.createVenta);
+router.post("/addDetalle", ControllerVentaProductos_1.agregarProducto);
 exports.default = router;

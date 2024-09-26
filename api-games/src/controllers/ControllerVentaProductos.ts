@@ -3,6 +3,16 @@ import VentaProductoDB from "../models/VentaProducto";
 import conn from "../data/Coneccion";
 import { QueryTypes } from "sequelize";
 
+export const agregarProducto = async (request: Request, response: Response) => {
+  try {
+    const { body } = request;
+    await VentaProductoDB.create(body);
+    response.json({ msg: "Producto agregado correctamente en la venta." });
+  } catch (error) {
+    response.status(500).json({ error: `No se pudo guardar el producto ${error}` });
+  }
+}
+
 export const productosPorVenta = async (request: Request, response: Response) => {
   try{
     const { codigoVenta } = request.params;

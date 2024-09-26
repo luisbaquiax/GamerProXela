@@ -12,8 +12,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getVentasPorSucursal = void 0;
+exports.getVentas = exports.getVentasPorSucursal = exports.createVenta = void 0;
 const Venta_1 = __importDefault(require("../models/Venta"));
+const createVenta = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { body } = request;
+        yield Venta_1.default.create(body);
+        response.json({ message: "Venta creada exitosamente." });
+    }
+    catch (error) {
+        response.status(500).json({ message: `${error}` });
+    }
+});
+exports.createVenta = createVenta;
 const getVentasPorSucursal = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { codigoSucursal } = request.params;
@@ -25,8 +36,22 @@ const getVentasPorSucursal = (request, response) => __awaiter(void 0, void 0, vo
         response.json(ventas);
     }
     catch (error) {
-        console.log("Imprimiendo error:\n", error);
         response.status(500).json({ message: `${error}` });
     }
 });
 exports.getVentasPorSucursal = getVentasPorSucursal;
+// SELECT * FROM venta.ventas ORDER BY codigo DESC; 
+const getVentas = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const ventas = yield Venta_1.default.findAll({
+            order: [
+                ['codigo', 'DESC'],
+            ],
+        });
+        response.json(ventas);
+    }
+    catch (error) {
+        response.status(500).json({ message: `Error en el servidor, ${error}` });
+    }
+});
+exports.getVentas = getVentas;

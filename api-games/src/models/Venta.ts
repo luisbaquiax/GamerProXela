@@ -8,6 +8,7 @@ const VentaDB = coneccion.define(
     codigo: {
       type: DataTypes.NUMBER,
       primaryKey: true,
+      autoIncrement: true,
     },
     nit_cliente: {
       type: DataTypes.STRING,

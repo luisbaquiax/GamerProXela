@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Coneccion_1 = __importDefault(require("../data/Coneccion"));
 const sequelize_1 = require("sequelize");
-const VentaProductoDB = Coneccion_1.default.define("productos_venta", {
+const DetallVentaDb = Coneccion_1.default.define("venta", {
     codigo_venta: {
         type: sequelize_1.DataTypes.NUMBER,
         primaryKey: true,
@@ -19,11 +19,11 @@ const VentaProductoDB = Coneccion_1.default.define("productos_venta", {
     },
     cantidad: {
         type: sequelize_1.DataTypes.NUMBER,
-    },
+    }
 }, {
     tableName: "productos_ventas",
     schema: "venta",
     createdAt: false,
     updatedAt: false,
 });
-exports.default = VentaProductoDB;
+exports.default = DetallVentaDb;

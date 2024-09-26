@@ -11,6 +11,7 @@ const VentaProductoDB = coneccion.define(
     },
     codigo_producto: {
       type: DataTypes.NUMBER,
+      primaryKey: true,
     },
     precio_unitario: {
       type: DataTypes.NUMBER,

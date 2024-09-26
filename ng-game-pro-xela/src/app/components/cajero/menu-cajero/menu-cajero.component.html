@@ -43,46 +43,13 @@
               role="button"
               aria-haspopup="true"
               aria-expanded="false"
-              >Solicitudes</a
+              >Ventas</a
             >
             <div class="dropdown-menu">
-              <a class="dropdown-item">Modificación de clientes</a>
+              <a class="dropdown-item" routerLink="/cajero-venta">Nueva venta</a>
             </div>
           </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              data-bs-toggle="dropdown"
-              role="button"
-              aria-haspopup="true"
-              aria-expanded="false"
-              >Tarjetas</a
-            >
-            <div class="dropdown-menu">
-              <a class="dropdown-item">AAA</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item">Separated link</a>
-            </div>
-          </li>
-  
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              data-bs-toggle="dropdown"
-              role="button"
-              aria-haspopup="true"
-              aria-expanded="false"
-              >Reportes</a
-            >
-            <div class="dropdown-menu">
-              <a class="dropdown-item">Historial de descuentos realizados en un intervalo de tiempo</a>
-              <a class="dropdown-item">Top 10 ventas más grandes en un intervalo de tiempo.</a>
-              <a class="dropdown-item">Top 2 sucursales que más dinero han ingresado</a>
-              <a class="dropdown-item">Top 10 artículos más vendidos</a>
-              <a class="dropdown-item">Top 10 clientes que más dinero han gastado</a>
-              <div class="dropdown-divider"></div>
-            </div>
-          </li>
+         
         </ul>
         <div class="d-flex">
           <a class="btn btn-secondary my-2 my-sm-0" (click)="singOut()">

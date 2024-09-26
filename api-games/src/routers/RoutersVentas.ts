@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { getVentasPorSucursal } from "../controllers/ControllerVenta";
-import { detallVenta, productosPorVenta, ventasPorCliente, ventasPorSucursal } from "../controllers/ControllerVentaProductos";
+import { createVenta, getVentas, getVentasPorSucursal } from "../controllers/ControllerVenta";
+import { agregarProducto, detallVenta, productosPorVenta, ventasPorCliente, ventasPorSucursal } from "../controllers/ControllerVentaProductos";
 
 const router = Router();
 
@@ -9,7 +9,10 @@ router.get("/:codigoSucursal", getVentasPorSucursal);
 router.get("/ventaProducto/:codigoVenta", productosPorVenta);
 router.get("/detalleVenta/:codigoVenta", detallVenta);
 router.get("/ventasCliente/:nitCliente", ventasPorCliente);
-router.get("/ventasSucursal/:codigoSucursal", ventasPorSucursal);   
+router.get("/ventasSucursal/:codigoSucursal", ventasPorSucursal);
+router.get("/",getVentas);  
+router.post("/",createVenta);
+router.post("/addDetalle", agregarProducto)   
 
 
 export default router;

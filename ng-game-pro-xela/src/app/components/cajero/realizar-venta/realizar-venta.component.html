@@ -1,1 +1,221 @@
-<p>realizar-venta works!</p>
+<app-menu-cajero></app-menu-cajero>
+<div class="container-fluider text-center top mx-3">
+  <div class="row align-items-end">
+    <div class="col-8">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h3 class="text-center">
+            <strong>Agregar producto a la venta</strong>
+          </h3>
+        </div>
+        <div class="card-body">
+          <form
+            class="row g-3"
+            [formGroup]="form"
+            (ngSubmit)="agregarProduct()"
+          >
+            <div class="col-auto">
+              <label for="codigo">Productos existentes</label>
+              <select
+                formControlName="codigo"
+                class="form-select"
+                aria-label="Default select example"
+              >
+                <option
+                  *ngFor="let p of productos; let i = index"
+                  value="{{ p.codigo_producto }}"
+                >
+                  {{ p.producto }} -- Unidades: {{ p.cantidad }}
+                </option>
+              </select>
+            </div>
+            <div class="col-auto">
+              <br />
+              <input
+                type="number"
+                class="form-control"
+                formControlName="cantidad"
+                id="cantidad"
+                placeholder="Cantidad"
+                autocomplete="off"
+              />
+            </div>
+            <div class="col-auto">
+              <br>
+              <button
+                type="submit"
+                class="btn btn-primary mb-3"
+                [disabled]="!form.valid"
+              >
+                Agregar producto
+              </button>
+            </div>
+          </form>
+          <hr />
+          <div class="row">
+            <h3 class="text-center">Detalle de la venta</h3>
+            <table>
+              <table class="table">
+                <tr>
+                  <th>Fecha</th>
+                  <th>Factura</th>
+                  <th>Nit del cliente</th>
+                  <th>Nombre</th>
+                </tr>
+                <tr>
+                  <td>{{ fecha }}</td>
+                  <td>{{ factura }}</td>
+                  <td>{{ customer.nit }}</td>
+                  <td>{{ customer.nombre }}</td>
+                </tr>
+              </table>
+            </table>
+          </div>
+          <h3 class="text-center">Productos</h3>
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr class="table-primary">
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio unitario</th>
+                <th>Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let p of productosVender; let i = index">
+                <td>{{ p.producto }}</td>
+                <td>{{ p.cantidad }}</td>
+                <td>{{ p.precio }}</td>
+                <td>{{ p.cantidad * p.precio | currency : "Q." }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-4 align-self-start">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h2>Total: {{ total | currency : "Q." }}</h2>
+        </div>
+        <div class="card-body">
+          <!-- Button trigger modal -->
+          <button
+            type="button"
+            class="btn btn-info w-100 mb-3"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            <i class="fa-solid fa-plus mx-3"></i>Registrar cliente
+          </button>
+
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">
+                    <strong>Registro de nuevo cliente</strong>
+                  </h1>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <form [formGroup]="formNewCustomer" (ngSubmit)="registerCustomer()">
+                    <div class="mb-3 row">
+                      <label for="nitCliente" ><strong>NIT:</strong></label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="nitCliente"
+                        placeholder="Ingrese el nit de cliente"
+                        formControlName = "nitCliente"
+                      />
+                    </div>
+                    <div class="mb-3 row">
+                      <label for="nombreCliente"
+                        ><strong> Nombre del cliente: </strong></label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="nombreCliente"
+                        placeholder="Ingrese el nombre del cliente"
+                        formControlName = "nombreCliente"
+                      />
+                    </div>
+                    <div class="mb-3 row">
+                      <button
+                      type="submit"
+                      class="btn btn-success"
+                      data-bs-dismiss="modal"
+                      [disabled]="!formNewCustomer.valid"
+                    >
+                    <i class="fas fa-save"></i> Guardar datos
+                    </button>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    data-bs-dismiss="modal"
+                  >
+                    Cerrrar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- modal fin -->
+          <form
+            class="row g-3"
+            [formGroup]="form2"
+            (ngSubmit)="searchCustomer()"
+          >
+            <div class="col-auto">
+              <input
+                type="text"
+                class="form-control"
+                formControlName="nit"
+                id="nit"
+                placeholder="Ingrese el nit a buscar"
+                autocomplete="off"
+              />
+            </div>
+            <div class="col-auto">
+              <button
+                type="submit"
+                class="btn btn-primary mb-3"
+                [disabled]="!form2.valid"
+              >
+                <i class="fa-solid fa-magnifying-glass"></i> Buscar
+              </button>
+            </div>
+            <div class="col-auto">
+              <a class="btn btn-warning mb-3" (click)="marcarConsumidorFinal()">
+                <i class="fa-solid fa-circle-check"></i> Consumidor final
+              </a>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer">
+          <button type="button" class="btn btn-success" (click)="finalizar()">
+            <i class="fas fa-check-double"></i> Finalizar venta
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
