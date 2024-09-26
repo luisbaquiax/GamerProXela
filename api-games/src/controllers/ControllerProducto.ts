@@ -12,9 +12,18 @@ export const getProducts = async (request: Request, response: Response) => {
 
 export const insertProduct = async (request: Request, response: Response) => {
   try {
-    const { body } = await request;
-    const { codigo, ...productData } = body;
-    await ProductoDb.create(productData);
+    /*const { body } =  request;
+    //const { codigo, ...productData } = body;
+    console.log(body);
+    const { nombre, precio } = body;
+    await ProductoDb.create({nombre, precio});*/
+    const { body } = request; // No necesitas 'await' aquí
+    const { nombre, precio } = body;
+
+    await ProductoDb.create({ nombre, precio });
+    response.status(201).json({
+        msg: "El producto se guardó con éxito.",
+    });
     response.json({
       msg: "El producto se guardo con éxito.",
     });

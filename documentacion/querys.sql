@@ -271,3 +271,35 @@ CREATE VIEW venta.top10_clientes AS
 	LIMIT 10;
 
 SELECT * FROM venta.top10_clientes;
+
+-- actualizar productos en sucursal en el momento de realizar una venta
+CREATE OR REPLACE FUNCTION venta.update_sucursal_productos()
+RETURNS TRIGGER AS $$
+BEGIN
+    UPDATE sucursal.sucursal_productos
+    SET cantidad = cantidad - NEW.cantidad
+    WHERE codigo_sucursal = (
+        SELECT codigo_sucursal
+        FROM venta.ventas
+        WHERE codigo = NEW.codigo_venta
+    )
+    AND codigo_producto = NEW.codigo_producto;
+
+    IF (SELECT cantidad FROM sucursal.sucursal_productos
+        WHERE codigo_sucursal = (
+            SELECT codigo_sucursal
+            FROM venta.ventas
+            WHERE codigo = NEW.codigo_venta
+        )
+        AND codigo_producto = NEW.codigo_producto) < 0 THEN
+        RAISE EXCEPTION 'No hay suficiente unidades de productos en la sucursal';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_sucursal_productos_trigger
+AFTER INSERT ON venta.productos_ventas
+FOR EACH ROW
+EXECUTE FUNCTION venta.update_sucursal_productos();

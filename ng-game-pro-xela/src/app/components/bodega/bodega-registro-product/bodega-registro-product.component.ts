@@ -167,6 +167,7 @@ export class BodegaRegistroProductComponent implements OnInit {
               });
             },
             (error) => {
+              console.log(error);
               Swal.fire({
                 title: 'Lo sentimos no se pudo guardar el producto!',
                 icon: 'error',

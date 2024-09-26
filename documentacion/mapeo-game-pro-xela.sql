@@ -1,6 +1,6 @@
-drop database games2;
-create database games2;
-\c games2;
+drop database games;
+create database games;
+\c games;
 
 CREATE SCHEMA usuario;
 CREATE SCHEMA producto;
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS usuario.clientes(
 
 CREATE TABLE IF NOT EXISTS producto.productos(
     codigo SERIAL   PRIMARY KEY             NOT NULL,
-    nombre          UNIQUE CHARACTER VARYING(45)   NOT NULL,
+    nombre          CHARACTER VARYING(45)   NOT NULL,
     precio          DOUBLE PRECISION        NOT NULL
 );
 
@@ -106,4 +106,23 @@ CREATE TABLE IF NOT EXISTS venta.productos_ventas(
     PRIMARY KEY(codigo_venta, codigo_producto),
     FOREIGN KEY(codigo_venta) REFERENCES venta.ventas(codigo),
     FOREIGN KEY(codigo_producto) REFERENCES producto.productos(codigo)
+);
+
+CREATE TABLE IF NOT EXISTS usuario.tarjetas(
+    id SERIAL           NOT NULL,
+    nit_cliente         CHARACTER VARYING(8) NOT NULL,
+    tipo                CHARACTER VARYING(45) NOT NULL,
+    fecha_activacion    DATE,
+    puntos              INT,
+    PRIMARY KEY(id),
+    FOREIGN KEY(nit_cliente) REFERENCES usuario.clientes(nit)
+);
+
+CREATE TABLE IF NOT EXISTS usuario.solicitud_tarjeta(
+    id SERIAL           NOT NULL,
+    nit_cliente         CHARACTER VARYING(8)    NOT NULL,
+    tipo                CHARACTER VARYING(45)   NOT NULL,
+    estado              CHARACTER VARYING(15)   NOT NULL,
+    PRIMARY KEY(id),
+    FOREIGN KEY(nit_cliente) REFERENCES usuario.clientes (nit)
 );

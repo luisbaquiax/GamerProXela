@@ -189,6 +189,8 @@
                 type="text"
                 class="form-control"
                 formControlName="nit"
+                minlength="8"
+                maxlength="8"
                 id="nit"
                 placeholder="Ingrese el nit a buscar"
                 autocomplete="off"
@@ -203,12 +205,12 @@
                 <i class="fa-solid fa-magnifying-glass"></i> Buscar
               </button>
             </div>
-            <div class="col-auto">
-              <a class="btn btn-warning mb-3" (click)="marcarConsumidorFinal()">
-                <i class="fa-solid fa-circle-check"></i> Consumidor final
-              </a>
-            </div>
           </form>
+          <div class="col-auto">
+            <a class="btn btn-warning mb-3 w-100" (click)="marcarConsumidorFinal()">
+              <i class="fa-solid fa-circle-check"></i> Consumidor final
+            </a>
+          </div>
         </div>
         <div class="card-footer">
           <button type="button" class="btn btn-success" (click)="finalizar()">

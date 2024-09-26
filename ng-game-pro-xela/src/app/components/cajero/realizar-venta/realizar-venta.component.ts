@@ -85,6 +85,8 @@ export class RealizarVentaComponent implements OnInit {
       }
     }
     this.serviceSesion.validarSesion();
+    this.setFactura();
+    this.setProducts();
   }
 
   public agregarProduct(): void {
@@ -152,10 +154,15 @@ export class RealizarVentaComponent implements OnInit {
   }
 
   public setFactura(): void {
-    this.serviceVenta.getAllVentas().subscribe((list) => {
-      this.ventas = list;
-      this.factura = this.ventas[0].codigo + 1;
-    });
+    this.serviceVenta.getAllVentas().subscribe(
+      (list) => {
+        this.ventas = list;
+        this.factura = this.ventas[0].codigo + 1;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   public searchCustomer(): void {
@@ -179,8 +186,7 @@ export class RealizarVentaComponent implements OnInit {
 
   public marcarConsumidorFinal(): void {
     this.customer.nit = '00000000';
-    this.customer.nombre = 'Consumidor Final';
-    this.customer.estado = 'INDEFINIDO';
+    this.customer.nombre = 'Consumidor Final'; 
   }
 
   public registerCustomer(): void {
@@ -269,6 +275,8 @@ export class RealizarVentaComponent implements OnInit {
           confirmButtonText: 'OK',
           confirmButtonColor: '#2c3e50',
         });
+        //
+        //this.setFactura();
       },
       (error) => {
         Swal.fire({
@@ -280,6 +288,7 @@ export class RealizarVentaComponent implements OnInit {
         });
       }
     );
+    console.log('codigo nueva venta ', nuevaVenta.codigo);
     this.productosVender.forEach((producto) => {
       let detallle: DetalleVentaModel = {
         codigo_venta: this.factura,
@@ -287,19 +296,22 @@ export class RealizarVentaComponent implements OnInit {
         precio_unitario: producto.precio,
         cantidad: producto.cantidad,
       };
-      this.serviceVenta.addProductoVenta(detallle).subscribe(()=>{
-        console.log("producto agregado", detallle);
-      }, (err) => {
-        console.log('error al agregar producto ', err)
-      });
+      this.serviceVenta.addProductoVenta(detallle).subscribe(
+        () => {
+          console.log('producto agregado: ', detallle);
+        },
+        (err) => {
+          console.log('producto detalle: ', detallle);
+          console.log('error al agregar producto ', err);
+        }
+      );
     });
-
     this.customer.nit = '';
     this.customer.nombre = '';
     this.customer.estado = '';
     this.productosVender = [];
     this.total = 0;
-    this.setFactura();
+    this.router.navigate(['cajero-menu']);
   }
 
   public setFecha(): void {

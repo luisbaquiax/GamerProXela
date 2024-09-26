@@ -13,4 +13,5 @@ router.get("/ventasSucursal/:codigoSucursal", ControllerVentaProductos_1.ventasP
 router.get("/", ControllerVenta_1.getVentas);
 router.post("/", ControllerVenta_1.createVenta);
 router.post("/addDetalle", ControllerVentaProductos_1.agregarProducto);
+router.get("/historialDescuento/historial", ControllerVenta_1.historialDescuetos);
 exports.default = router;

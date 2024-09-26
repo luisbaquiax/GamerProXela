@@ -44,6 +44,10 @@ export class ServiceVentaService {
   public getAllVentas(): Observable<VentaModel[]> {
     return this.http.get<VentaModel[]>(this.urlApi);
   }
+
+  public getHistorialVentasConDescuento(): Observable<VentaModel[]> {
+    return this.http.get<VentaModel[]>(`${this.urlApi}/historialDescuento/historial`);
+  }
   
   public createVenta(venta: VentaModel): Observable<VentaModel> {
     return this.http.post<VentaModel>(this.urlApi, venta);
