@@ -82,10 +82,12 @@ export class ReportesComponent implements OnInit {
         this.showDivHistorial();
         break;
       case 2:
+        this.showHistorial = false;
         this.mostarDivTopVentas();
         break;
       case 3:
         this.showTopVentas = false;
+        this.showHistorial = false;
         this.serviceReporte.getTopSucursales().subscribe((list) => {
           this.topSucursales = list;
           console.log(this.topSucursales);
@@ -93,22 +95,26 @@ export class ReportesComponent implements OnInit {
         break;
       case 4:
         this.showTopVentas = false;
+        this.showHistorial = false;
         this.serviceReporte.getTopProductos().subscribe((list) => {
           this.topArticulos = list;
         });
         break;
       case 5:
         this.showTopVentas = false;
+        this.showHistorial = false;
         this.serviceReporte.getTopClientes().subscribe((list) => {
           this.topClientes = list;
         });
         break;
       case 6:
         this.showTopVentas = true;
+        this.showHistorial = false;
         this.showForm = false;
         break
       case 7:
         this.showTopVentas = true;
+        this.showHistorial = false;
         this.showForm = false;
         break;
       case 8:
@@ -165,6 +171,7 @@ export class ReportesComponent implements OnInit {
   }
 
   public showDivHistorial(): void {
+    this.topVentas = []
     this.showTopVentas = false;
     this.title = 'Historial de Ventas con Descuento';
     this.showHistorial = true;
