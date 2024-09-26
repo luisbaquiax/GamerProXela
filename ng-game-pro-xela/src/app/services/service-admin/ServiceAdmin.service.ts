@@ -32,4 +32,10 @@ export class ServiceAdminService {
   public getTopClientes(): Observable<ReportTop10Clientes[]> {
     return this.http.get<ReportTop10Clientes[]>(`${this.urlApi}/topClientes`);
   }
+
+  
+  public getHistorialVentasConDescuento(fecha1: string, fecha2: string): Observable<ReportTopVentas[]> {
+    return this.http.get<ReportTopVentas[]>(`${this.urlApi}/historial/${fecha1}/${fecha2}`);
+  }
+  
 }

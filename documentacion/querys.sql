@@ -83,7 +83,33 @@ SELECT * FROM bodega.get_bodega_productos('bodega1');
 -- REPORTES
 
 -- ( historial descuentos ) REPORTE: historial de descuentos realizado en un intervalo de tiempo
+CREATE OR REPLACE FUNCTION venta.historial_descuento(fecha1 DATE, fecha2 DATE)
+RETURNS TABLE(
+				codigo INT,
+				nit_cliente CHARACTER VARYING(8),
+				username_usuario CHARACTER VARYING(45),
+				fecha DATE,
+				total DOUBLE PRECISION,
+				descuento DOUBLE PRECISION,
+				sucursal CHARACTER VARYING(45)
+			) AS $$
+BEGIN
+	RETURN QUERY
+		SELECT 	v.codigo,
+				v.nit_cliente,
+				v.username_usuario,
+				v.fecha,
+				v.total,
+				v.descuento,
+				s.nombre AS sucursal
+		FROM venta.ventas v
+		INNER JOIN sucursal.sucursales s ON s.codigo = v.codigo_sucursal
+		WHERE v.fecha BETWEEN fecha1 AND fecha2 AND v.descuento > 0
+		ORDER BY v.total DESC;
+END;
+$$ LANGUAGE plpgsql;
 
+SELECT * FROM venta.historial_descuento('2024-01-01', '2024-12-31');
 
 
 -- ( 1 )  REPORTE: top 10 ventas más grandes en un intervalo de tiempo

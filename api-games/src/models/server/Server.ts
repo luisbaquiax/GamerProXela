@@ -8,6 +8,7 @@ import routerBodega from "../../routers/RoutersBodega";
 import routerReportesAdmin from "../../routers/RouterReporteAdmin";
 import routerProducts from "../../routers/RouterProduct";
 import routerInventario from "../../routers/RouterInventario";
+import routerTarjeta from "../../routers/RouterTarjeta";
 import dataBase from "../../data/Coneccion";
 
 export class Server {
@@ -44,6 +45,7 @@ export class Server {
     this.app.use("/api/reportsAdmin", routerReportesAdmin);
     this.app.use("/api/products", routerProducts);
     this.app.use("/api/inventario", routerInventario);
+    this.app.use("/api/tarjetas", routerTarjeta);
   }
 
   casteoJSON() {

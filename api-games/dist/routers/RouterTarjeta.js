@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const ControllerTarjeta_1 = require("../controllers/ControllerTarjeta");
+const router = (0, express_1.Router)();
+router.post("/solicitud", ControllerTarjeta_1.createSolicitud);
+router.get("/list", ControllerTarjeta_1.listSolicitudes);
+router.put("/solicitud/:id", ControllerTarjeta_1.updateSolicitud);
+router.get("/solicitud/:id", ControllerTarjeta_1.getSolicitudById);
+router.post("/tarjeta", ControllerTarjeta_1.createTarjeta);
+router.put("/tarjeta/:id", ControllerTarjeta_1.updateTarjeta);
+router.get("/tarjeta/:nit", ControllerTarjeta_1.getTarjetaByClient);
+router.get("/tarjeta/list", ControllerTarjeta_1.listTarjetas);
+exports.default = router;

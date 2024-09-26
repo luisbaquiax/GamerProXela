@@ -29,9 +29,11 @@ export class ReportesComponent implements OnInit {
   totalDetalle: number = 0;
 
   fomrGroup: FormGroup;
+  fomrGroupHistorial: FormGroup;
 
   showTopVentas: boolean = false;
   showForm: boolean = false;
+  showHistorial: boolean = false;
   title: string = '';
 
   user: Usuario;
@@ -48,6 +50,12 @@ export class ReportesComponent implements OnInit {
       fecha1: [null,[Validators.required]],
       fecha2: [null,[Validators.required]]
     });
+
+    this.fomrGroupHistorial = this.fb.group({
+      fechaH1: [null,[Validators.required]],
+      fechaH2: [null,[Validators.required]]
+    });
+
     this.reporte = Number(this.activeRouter.snapshot.paramMap.get('reporte'));
     let userJson = localStorage.getItem('userLogin');
     this.user = userJson? JSON.parse(userJson) : null;
@@ -71,6 +79,7 @@ export class ReportesComponent implements OnInit {
     switch (this.reporte) {
       case 1:
         this.showTopVentas = false
+        this.showDivHistorial();
         break;
       case 2:
         this.mostarDivTopVentas();
@@ -102,6 +111,9 @@ export class ReportesComponent implements OnInit {
         this.showTopVentas = true;
         this.showForm = false;
         break;
+      case 8:
+        this.showDivHistorial();
+        break  
       default:
         console.log('No hay reporte con ese ID');
     }
@@ -150,5 +162,21 @@ export class ReportesComponent implements OnInit {
     this.serviceVenta.getVentasSucursal(codigSucursal).subscribe((list) => {
       this.topVentas = list;
     });
+  }
+
+  public showDivHistorial(): void {
+    this.showTopVentas = false;
+    this.title = 'Historial de Ventas con Descuento';
+    this.showHistorial = true;
+  }
+
+  public setHistorial(): void {
+    const fecha1 = this.fomrGroupHistorial.value.fechaH1;
+    const fecha2 = this.fomrGroupHistorial.value.fechaH2;
+    this.serviceReporte.getHistorialVentasConDescuento(fecha1, fecha2).subscribe(
+      (list) => {
+        this.topVentas = list;
+      },
+    );
   }
 }

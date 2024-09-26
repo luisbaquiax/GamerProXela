@@ -60,3 +60,24 @@ export const getTop10Clientes = async (request: Request, response: Response) => 
         response.status(500).json({ message: `${error}` });
     }
 };
+
+export const historalDescuento = async (request: Request, response: Response) => {
+    try {
+        const { fecha1, fecha2 } = request.params;
+    
+        const query = `
+          SELECT * FROM venta.historial_descuento(:fecha1, :fecha2);
+        `;
+    
+        const productos = await conn.query(query, {
+          replacements: { fecha1:  fecha1, fecha2: fecha2 },
+          type: QueryTypes.SELECT,
+        });
+    
+        response.json(productos);
+      } catch (error) {
+        response.status(500).json({ message: "error: " + `${error}` });
+      }
+};
+
+
